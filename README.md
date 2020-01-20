@@ -1,4 +1,4 @@
-# silence_flutter_study
+# 基于WanAndroid实现的客户端
 
 A new Flutter application.
 
