@@ -7,7 +7,6 @@ class SpUtils {
 
   // 保存用户登录信息，data中包含了userName
   static Future saveLoginInfo(String userName) async {
-    print('isLogin');
     SharedPreferences sp = await SharedPreferences.getInstance();
     await sp.setString(USERNAME, userName);
     await sp.setBool(IS_LOGIN, true);

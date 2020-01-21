@@ -16,7 +16,8 @@ dependencies:
   dio: ^2.1.3
   cookie_jar: ^1.0.0
   shared_preferences: ^0.4.1
-  banner: ^0.1.3
+  flutter_swiper: ^1.1.6
+  webview_flutter: ^0.3.19+5
 
 
 dev_dependencies:

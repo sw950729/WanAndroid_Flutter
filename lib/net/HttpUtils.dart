@@ -3,9 +3,7 @@ import 'dart:io';
 
 import 'package:cookie_jar/cookie_jar.dart';
 import 'package:dio/dio.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-import 'package:silence_flutter_study/common/SpUtils.dart';
-import 'package:silence_flutter_study/common/Strings.dart';
+import 'package:silence_flutter_study/common/Logger.dart';
 import 'package:silence_flutter_study/net/ApiUrl.dart';
 
 class HttpUtils {
@@ -45,12 +43,12 @@ class HttpUtils {
 
   void request(String url, Function successCallback,
       {data, options, method}) async {
-    method = method ?? 'GET';
+    method = method ?? GET;
     Response response;
     try {
       if (method == GET) {
         url = ApiUrl.baseUrl + url;
-        print('请求地址：' + url);
+        Logger.d('请求地址：' + url);
         if (data != null && data.isNotEmpty) {
           StringBuffer sb = new StringBuffer("?");
           data.forEach((key, value) {
@@ -60,24 +58,24 @@ class HttpUtils {
           paramStr = paramStr.substring(0, paramStr.length - 1);
           url += paramStr;
         }
-        print('入参数据：' + data.toString());
+        Logger.d('入参数据：' + data.toString());
         response = await dio.get(url, queryParameters: data, options: options);
       } else if (method == POST) {
         url = ApiUrl.baseUrl + url;
-        print('请求地址：' + url);
-        print('入参数据：' + data.toString());
+        Logger.d('请求地址：' + url);
+        Logger.d('入参数据：' + data.toString());
         response = await dio.post(url, queryParameters: data, options: options);
       }
     } on DioError catch (e) {
-      print('请求出错：' + e.toString());
+      Logger.d('请求出错：' + e.toString());
     }
     if (HttpStatus.ok == response.statusCode) {
       if (successCallback != null) {
         successCallback(json.decode(response.toString())['data']);
       }
-      print('响应数据：' + response.toString());
+      Logger.d('响应数据：' + response.toString());
     } else {
-      print('请求出错：' +
+      Logger.d('请求出错：' +
           response.statusCode.toString() +
           "," +
           response.statusMessage);
