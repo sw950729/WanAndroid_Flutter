@@ -2,6 +2,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
+import '../common/DataUtils.dart';
+
+/// @date:2020-01-20
+/// @author:Silence
+/// @describe:
 class WebViewPage extends StatefulWidget {
   final String webUrl;
   final String webTitle;
@@ -23,7 +28,8 @@ class _WebViewPage extends State<WebViewPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.webTitle),
+        title: Text(DataUtils.replaceAll(widget.webTitle)),
+        centerTitle: true,
         actions: <Widget>[
           Visibility(
             visible: !widget.isBanner,

@@ -1,3 +1,6 @@
+/// @date:2020-01-19
+/// @author:Silence
+/// @describe:
 class HomeArticleListEntity {
   int curPage;
   List<HomeArticleListDatasEntity> datas;

@@ -1,11 +1,16 @@
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:cookie_jar/cookie_jar.dart';
 import 'package:dio/dio.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:silence_flutter_study/common/DataUtils.dart';
 import 'package:silence_flutter_study/common/Logger.dart';
+import 'package:silence_flutter_study/common/SpUtils.dart';
 import 'package:silence_flutter_study/net/ApiUrl.dart';
 
+/// @date:2020-01-16
+/// @author:Silence
+/// @describe:
 class HttpUtils {
   static HttpUtils _httpUtils;
   BaseOptions options;
@@ -30,7 +35,6 @@ class HttpUtils {
         contentType: ContentType.json,
         responseType: ResponseType.json);
     dio = Dio(options);
-    dio.interceptors.add(CookieManager(CookieJar()));
     dio.interceptors
         .add(InterceptorsWrapper(onRequest: (RequestOptions options) {
       return options;
@@ -41,8 +45,19 @@ class HttpUtils {
     }));
   }
 
+  void setCookie(String cookie) {
+    Map<String, dynamic> _headers = new Map();
+    _headers["Cookie"] = cookie;
+    dio.options.headers.addAll(_headers);
+  }
+
   void request(String url, Function successCallback,
       {data, options, method}) async {
+    await SpUtils.getCookie().then((cookie) {
+      if (!DataUtils.isEmpty(cookie)) {
+        setCookie(cookie);
+      }
+    });
     method = method ?? GET;
     Response response;
     try {
@@ -70,10 +85,22 @@ class HttpUtils {
       Logger.d('请求出错：' + e.toString());
     }
     if (HttpStatus.ok == response.statusCode) {
-      if (successCallback != null) {
+      if (successCallback != null &&
+          json.decode(response.toString())['errorCode'] == 0) {
         successCallback(json.decode(response.toString())['data']);
+      } else {
+        Fluttertoast.showToast(
+            msg: json.decode(response.toString())['errorMsg']);
       }
       Logger.d('响应数据：' + response.toString());
+      if (url == ApiUrl.baseUrl + ApiUrl.login) {
+        response.headers.forEach((String name, List<String> values) {
+          if (name == "set-cookie") {
+            String cookie = values.toString();
+            SpUtils.saveCookie(cookie);
+          }
+        });
+      }
     } else {
       Logger.d('请求出错：' +
           response.statusCode.toString() +

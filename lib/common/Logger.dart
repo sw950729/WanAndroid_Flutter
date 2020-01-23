@@ -1,5 +1,8 @@
 import 'package:flutter/cupertino.dart';
 
+/// @date:2020-01-14
+/// @author:Silence
+/// @describe:
 class Logger {
   static var _separator = "=";
   static var _isDebug = true;

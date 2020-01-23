@@ -1,3 +1,6 @@
+/// @date:2020-01-13
+/// @author:Silence
+/// @describe:
 class LoginEntity {
   bool admin;
   String email;
@@ -12,15 +15,15 @@ class LoginEntity {
 
   LoginEntity(
       {this.admin,
-        this.email,
-        this.icon,
-        this.id,
-        this.nickname,
-        this.password,
-        this.publicName,
-        this.token,
-        this.type,
-        this.username});
+      this.email,
+      this.icon,
+      this.id,
+      this.nickname,
+      this.password,
+      this.publicName,
+      this.token,
+      this.type,
+      this.username});
 
   LoginEntity.fromJson(Map<String, dynamic> json) {
     admin = json['admin'];

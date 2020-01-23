@@ -10,6 +10,11 @@ import 'package:silence_flutter_study/widget/ListItemWidget.dart';
 import 'package:silence_flutter_study/widget/LoadMoreWidget.dart';
 import 'package:silence_flutter_study/widget/NoMoreWidget.dart';
 
+import '../../common/Strings.dart';
+
+/// @date:2020-01-14
+/// @author:Silence
+/// @describe:
 class HomeViewPage extends StatefulWidget {
   @override
   State<StatefulWidget> createState() => _HomeViewPage();
@@ -62,12 +67,29 @@ class _HomeViewPage extends State<HomeViewPage> {
         child: CircularProgressIndicator(),
       );
     } else {
-      return RefreshIndicator(
-        onRefresh: _onRefresh,
-        child: new ListView.builder(
-          itemBuilder: (context, i) => _createItem(i),
-          itemCount: listData.length + 2,
-          controller: _controller,
+      return Scaffold(
+        appBar: AppBar(
+            title: Text(
+              Strings.homePageTitle,
+              style: TextStyle(color: Colors.white),
+            ),
+            centerTitle: true,
+            actions: <Widget>[
+              IconButton(
+                icon: Icon(
+                  Icons.search,
+                  color: Colors.white,
+                ),
+                onPressed: null,
+              )
+            ]),
+        body: RefreshIndicator(
+          onRefresh: _onRefresh,
+          child: new ListView.builder(
+            itemBuilder: (context, i) => _createItem(i),
+            itemCount: listData.length + 2,
+            controller: _controller,
+          ),
         ),
       );
     }

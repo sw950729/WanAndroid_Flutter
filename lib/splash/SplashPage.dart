@@ -1,10 +1,11 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:silence_flutter_study/common/SpUtils.dart';
 import 'package:silence_flutter_study/main/MainPage.dart';
-import 'package:silence_flutter_study/login/LoginPage.dart';
 
+/// @date:2020-01-16
+/// @author:Silence
+/// @describe:
 class SplashState extends StatefulWidget {
   @override
   State<SplashState> createState() => _SplashWidget();
@@ -22,7 +23,11 @@ class _SplashWidget extends State<SplashState> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Image.asset('images/splash_bg.png',width: double.infinity,height: double.infinity,),
+      body: Image.asset(
+        'images/splash_bg.png',
+        width: double.infinity,
+        height: double.infinity,
+      ),
     );
   }
 
@@ -33,21 +38,9 @@ class _SplashWidget extends State<SplashState> {
 
   void gotoHomePage() {
     if (!isStartHomePage) {
-      SpUtils.isLogin().then((isLogin) {
-        if (!isLogin) {
-          _login();
-        } else {
-          _launchMain();
-        }
-      });
-      isStartHomePage = true;
+      _launchMain();
     }
-  }
-
-  _login() {
-    Navigator.of(context).pushAndRemoveUntil(
-        MaterialPageRoute(builder: (context) => LoginPage()),
-        (Route<dynamic> rout) => false);
+    isStartHomePage = true;
   }
 
   _launchMain() {

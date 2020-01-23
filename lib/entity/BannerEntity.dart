@@ -1,3 +1,7 @@
+
+/// @date:2020-01-19
+/// @author:Silence
+/// @describe:
 class BannerEntity {
   String desc;
   int id;

@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:silence_flutter_study/common/Strings.dart';
 
+/// @date:2020-01-20
+/// @author:Silence
+/// @describe:
 class NoMoreWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {

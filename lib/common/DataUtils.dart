@@ -1,3 +1,7 @@
+
+/// @date:2020-01-14
+/// @author:Silence
+/// @describe:
 class DataUtils {
   static bool isEmpty(String msg) {
     return msg == null || msg.length == 0;
@@ -14,6 +18,7 @@ class DataUtils {
     str = str.replaceAll("&mdash;", "\—");
     str = str.replaceAll("&amp;", "\&");
     str = str.replaceAll("&middot;", "\·");
+    str = str.replaceAll("&hellip;", "\.\.\.");
     return str;
   }
 }

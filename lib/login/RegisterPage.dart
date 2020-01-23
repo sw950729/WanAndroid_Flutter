@@ -1,25 +1,23 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:silence_flutter_study/common/AppColors.dart';
-import 'package:silence_flutter_study/common/SpUtils.dart';
 import 'package:silence_flutter_study/common/Strings.dart';
-import 'package:silence_flutter_study/entity/LoginEntity.dart';
-import 'package:silence_flutter_study/login/RegisterPage.dart';
 import 'package:silence_flutter_study/net/ApiUrl.dart';
 import 'package:silence_flutter_study/net/HttpUtils.dart';
 
-/// @date:2020-01-13
+/// @date:2020-01-22
 /// @author:Silence
 /// @describe:
-class LoginPage extends StatefulWidget {
+class RegisterPage extends StatefulWidget {
   @override
-  LoginPageState createState() => LoginPageState();
+  State<RegisterPage> createState() => _RegisterPage();
 }
 
-class LoginPageState extends State<LoginPage> {
+class _RegisterPage extends State<RegisterPage> {
   TextEditingController _userNameController = TextEditingController();
   TextEditingController _userPassWordController = TextEditingController();
-  bool _isShowPassWord = false;
+  TextEditingController _makeSureUserPassWordController =
+      TextEditingController();
   GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
@@ -27,7 +25,7 @@ class LoginPageState extends State<LoginPage> {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-        title: Text(Strings.login),
+        title: Text(Strings.register),
         centerTitle: true,
       ),
       key: scaffoldKey,
@@ -52,52 +50,35 @@ class LoginPageState extends State<LoginPage> {
               decoration: InputDecoration(
                   labelText: Strings.password,
                   hintText: Strings.passwordHint,
-                  prefixIcon: Icon(Icons.lock),
-                  suffixIcon: IconButton(
-                    icon: Icon(_isShowPassWord
-                        ? Icons.visibility_off
-                        : Icons.visibility),
-                    onPressed: () {
-                      setState(() {
-                        _isShowPassWord = !_isShowPassWord;
-                      });
-                    },
-                  )),
+                  prefixIcon: Icon(Icons.lock)),
               obscureText: true,
             ),
-            Padding(
-              padding: EdgeInsets.only(top: 15.0),
-              child: Container(
-                padding: EdgeInsets.only(top: 15.0),
-                width: double.infinity,
-                child: RaisedButton(
-                  color: Theme.of(context).primaryColor,
-                  onPressed: _onLogin,
-                  textColor: Colors.white,
-                  child: Text(Strings.login),
-                ),
-                margin: EdgeInsets.all(5.0),
-              ),
+            TextFormField(
+              controller: _makeSureUserPassWordController,
+              decoration: InputDecoration(
+                  labelText: Strings.makeSurePassword,
+                  hintText: Strings.passwordHint,
+                  prefixIcon: Icon(Icons.lock)),
+              obscureText: true,
             ),
-            GestureDetector(
-              child: Container(
-                alignment: Alignment.centerRight,
-                padding: EdgeInsets.only(top: 15.0, right: 10.0),
-                child: Text(
-                  Strings.goToRegister,
-                  style:
-                      TextStyle(fontSize: 14.0, color: AppColors.colorPrimary),
-                ),
+            Container(
+              padding: EdgeInsets.only(top: 15.0),
+              width: double.infinity,
+              child: RaisedButton(
+                color: Theme.of(context).primaryColor,
+                onPressed: _onRegister,
+                textColor: Colors.white,
+                child: Text(Strings.register),
               ),
-              onTap: _launchRegister,
-            )
+              margin: EdgeInsets.all(5.0),
+            ),
           ],
         ),
       ),
     );
   }
 
-  void _onLogin() async {
+  void _onRegister() {
     if (_userNameController.text.length == 0) {
       showToast(Strings.pleaseInputUserName);
       return;
@@ -106,28 +87,26 @@ class LoginPageState extends State<LoginPage> {
       showToast(Strings.passwordHint);
       return;
     }
+    if (_makeSureUserPassWordController.text.length == 0) {
+      showToast(Strings.passwordHint);
+      return;
+    }
     if (_userPassWordController.text.length < 6) {
       showToast(Strings.passwordAtLeast);
       return;
     }
-    HttpUtils.getInstance().request(ApiUrl.login, (data) {
-      LoginEntity entity = LoginEntity.fromJson(data);
-      SpUtils.saveLoginInfo(entity.nickname);
-      SpUtils.saveUserGuid(entity.id);
-      _launchMain();
+    if (_makeSureUserPassWordController.text.length < 6) {
+      showToast(Strings.passwordAtLeast);
+      return;
+    }
+    HttpUtils.getInstance().request(ApiUrl.register, (data) {
+      showToast(Strings.registerSuccess);
+      Navigator.of(context).pop();
     }, method: HttpUtils.POST, data: {
       'username': _userNameController.text,
       'password': _userPassWordController.text,
+      'repassword': _makeSureUserPassWordController.text
     });
-  }
-
-  void _launchRegister() {
-    Navigator.of(context)
-        .push(MaterialPageRoute(builder: (context) => RegisterPage()));
-  }
-
-  _launchMain() {
-    Navigator.of(context).pop(SpUtils.getUserName());
   }
 
   void showToast(String msg) {

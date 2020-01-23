@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 
+/// @date:2020-01-14
+/// @author:Silence
+/// @describe:
 class NavigationViewPage extends StatefulWidget {
   @override
   State<StatefulWidget> createState() => _NavigationViewPage();
