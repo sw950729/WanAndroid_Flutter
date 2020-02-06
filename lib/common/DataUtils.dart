@@ -1,3 +1,4 @@
+import 'package:intl/intl.dart';
 
 /// @date:2020-01-14
 /// @author:Silence
@@ -20,5 +21,13 @@ class DataUtils {
     str = str.replaceAll("&middot;", "\·");
     str = str.replaceAll("&hellip;", "\.\.\.");
     return str;
+  }
+
+  static getFormatData(int millisecondsSinceEpoch, String format) {
+    var dataFormat = new DateFormat(format);
+    var dateTime =
+        new DateTime.fromMillisecondsSinceEpoch(millisecondsSinceEpoch);
+    String formatResult = dataFormat.format(dateTime);
+    return formatResult;
   }
 }

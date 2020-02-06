@@ -2,10 +2,10 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:silence_flutter_study/splash/SplashPage.dart';
+import 'package:silence_wan_android/splash/SplashPage.dart';
 
 void main() {
-  runApp(new FlutterStudyApp());
+  runApp(new WanAndroidApp());
   //处理沉浸式
   if (Platform.isAndroid) {
     SystemUiOverlayStyle systemUiOverlayStyle =
@@ -14,11 +14,9 @@ void main() {
   }
 }
 
-class FlutterStudyApp extends StatelessWidget {
+class WanAndroidApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return new MaterialApp(
-      home: new SplashState(),
-    );
+    return new MaterialApp(home: new SplashState());
   }
 }

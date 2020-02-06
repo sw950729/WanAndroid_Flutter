@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:silence_flutter_study/main/MainPage.dart';
+import 'package:silence_wan_android/main/MainPage.dart';
 
 /// @date:2020-01-16
 /// @author:Silence

@@ -1,9 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:silence_flutter_study/common/AppColors.dart';
-import 'package:silence_flutter_study/main/home/HomeViewPage.dart';
-import 'package:silence_flutter_study/main/home/MineViewPage.dart';
-import 'package:silence_flutter_study/main/home/NavigationViewPage.dart';
+import 'package:silence_wan_android/common/AppColors.dart';
+import 'package:silence_wan_android/main/home/HomeViewPage.dart';
+import 'package:silence_wan_android/main/home/MineViewPage.dart';
+import 'package:silence_wan_android/main/home/NavigationViewPage.dart';
 
 import '../common/Strings.dart';
 

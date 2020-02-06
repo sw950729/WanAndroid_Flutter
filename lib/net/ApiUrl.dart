@@ -11,10 +11,21 @@ class ApiUrl {
 
   //首页banner
   static var banner = "/banner/json";
-
   //首页文章列表
   static var homeArticleList = "/article/list/";
 
   //获取个人积分
   static var userInfo = "/lg/coin/userinfo/json";
+  static var recordHistory = "/lg/coin/list/";
+
+  //收藏
+  static var collect = "/lg/collect/";
+  static var unCollect = "/lg/uncollect_originId/";
+  static var collectList = "/lg/collect/list/";
+  static var unCollectList="/lg/uncollect/";
+
+  //分享
+  static var myShareArticle="/user/lg/private_articles/";
+  static var deleteArticle= "/lg/user_article/delete/";
+  static var shareArticle="/lg/user_article/add/json";
 }

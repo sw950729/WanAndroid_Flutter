@@ -3,10 +3,10 @@ import 'dart:io';
 
 import 'package:dio/dio.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:silence_flutter_study/common/DataUtils.dart';
-import 'package:silence_flutter_study/common/Logger.dart';
-import 'package:silence_flutter_study/common/SpUtils.dart';
-import 'package:silence_flutter_study/net/ApiUrl.dart';
+import 'package:silence_wan_android/common/DataUtils.dart';
+import 'package:silence_wan_android/common/Logger.dart';
+import 'package:silence_wan_android/common/SpUtils.dart';
+import 'package:silence_wan_android/net/ApiUrl.dart';
 
 /// @date:2020-01-16
 /// @author:Silence
@@ -52,7 +52,7 @@ class HttpUtils {
   }
 
   void request(String url, Function successCallback,
-      {data, options, method}) async {
+      {requestData, options, method}) async {
     await SpUtils.getCookie().then((cookie) {
       if (!DataUtils.isEmpty(cookie)) {
         setCookie(cookie);
@@ -64,22 +64,24 @@ class HttpUtils {
       if (method == GET) {
         url = ApiUrl.baseUrl + url;
         Logger.d('请求地址：' + url);
-        if (data != null && data.isNotEmpty) {
+        if (requestData != null && requestData.isNotEmpty) {
           StringBuffer sb = new StringBuffer("?");
-          data.forEach((key, value) {
+          requestData.forEach((key, value) {
             sb.write("$key" + "=" + "$value" + "&");
           });
           String paramStr = sb.toString();
           paramStr = paramStr.substring(0, paramStr.length - 1);
           url += paramStr;
         }
-        Logger.d('入参数据：' + data.toString());
-        response = await dio.get(url, queryParameters: data, options: options);
+        Logger.d('入参数据：' + requestData.toString());
+        response =
+            await dio.get(url, queryParameters: requestData, options: options);
       } else if (method == POST) {
         url = ApiUrl.baseUrl + url;
         Logger.d('请求地址：' + url);
-        Logger.d('入参数据：' + data.toString());
-        response = await dio.post(url, queryParameters: data, options: options);
+        Logger.d('入参数据：' + requestData.toString());
+        response =
+            await dio.post(url, queryParameters: requestData, options: options);
       }
     } on DioError catch (e) {
       Logger.d('请求出错：' + e.toString());

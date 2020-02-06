@@ -144,6 +144,13 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "2.1.4"
+  intl:
+    dependency: "direct main"
+    description:
+      name: intl
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "0.16.1"
   matcher:
     dependency: transitive
     description:
@@ -171,7 +178,7 @@ packages:
       name: path_provider
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "1.5.1"
+    version: "1.6.0"
   pedantic:
     dependency: transitive
     description:
@@ -253,7 +260,7 @@ packages:
       name: synchronized
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "2.1.1"
+    version: "2.2.0"
   term_glyph:
     dependency: transitive
     description:

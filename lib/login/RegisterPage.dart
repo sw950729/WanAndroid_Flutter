@@ -1,9 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:silence_flutter_study/common/Strings.dart';
-import 'package:silence_flutter_study/net/ApiUrl.dart';
-import 'package:silence_flutter_study/net/HttpUtils.dart';
+import 'package:silence_wan_android/common/Strings.dart';
+import 'package:silence_wan_android/net/ApiUrl.dart';
+import 'package:silence_wan_android/net/HttpUtils.dart';
 
 /// @date:2020-01-22
 /// @author:Silence
@@ -102,7 +102,7 @@ class _RegisterPage extends State<RegisterPage> {
     HttpUtils.getInstance().request(ApiUrl.register, (data) {
       showToast(Strings.registerSuccess);
       Navigator.of(context).pop();
-    }, method: HttpUtils.POST, data: {
+    }, method: HttpUtils.POST, requestData: {
       'username': _userNameController.text,
       'password': _userPassWordController.text,
       'repassword': _makeSureUserPassWordController.text

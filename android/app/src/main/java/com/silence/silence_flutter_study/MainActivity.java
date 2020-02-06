@@ -1,4 +1,4 @@
-package com.silence.silence_flutter_study;
+package com.silence.silence_wan_android;
 
 import androidx.annotation.NonNull;
 import io.flutter.embedding.android.FlutterActivity;

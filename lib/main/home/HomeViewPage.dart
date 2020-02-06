@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
-import 'package:silence_flutter_study/common/DataUtils.dart';
-import 'package:silence_flutter_study/entity/BannerEntity.dart';
-import 'package:silence_flutter_study/entity/HomeArticleListEntity.dart';
-import 'package:silence_flutter_study/net/ApiUrl.dart';
-import 'package:silence_flutter_study/net/HttpUtils.dart';
-import 'package:silence_flutter_study/web/WebViewPage.dart';
-import 'package:silence_flutter_study/widget/ListItemWidget.dart';
-import 'package:silence_flutter_study/widget/LoadMoreWidget.dart';
-import 'package:silence_flutter_study/widget/NoMoreWidget.dart';
+import 'package:silence_wan_android/common/DataUtils.dart';
+import 'package:silence_wan_android/common/StateWithLifecycle.dart';
+import 'package:silence_wan_android/entity/BannerEntity.dart';
+import 'package:silence_wan_android/entity/HomeArticleListEntity.dart';
+import 'package:silence_wan_android/net/ApiUrl.dart';
+import 'package:silence_wan_android/net/HttpUtils.dart';
+import 'package:silence_wan_android/web/WebViewPage.dart';
+import 'package:silence_wan_android/widget/HomeListItemWidget.dart';
+import 'package:silence_wan_android/widget/LoadMoreWidget.dart';
+import 'package:silence_wan_android/widget/NoMoreWidget.dart';
 
 import '../../common/Strings.dart';
 
@@ -20,7 +21,7 @@ class HomeViewPage extends StatefulWidget {
   State<StatefulWidget> createState() => _HomeViewPage();
 }
 
-class _HomeViewPage extends State<HomeViewPage> {
+class _HomeViewPage extends StateWithLifecycle<HomeViewPage> {
   // 当前页数
   var currentPage = 0;
 
@@ -37,13 +38,6 @@ class _HomeViewPage extends State<HomeViewPage> {
   bool isLoadMore = true;
   ScrollController _controller = ScrollController();
 
-  @override
-  void initState() {
-    super.initState();
-    _getBanner();
-    _getHomeArticleList();
-  }
-
   _HomeViewPage() {
     _controller.addListener(() {
       var maxScroll = _controller.position.maxScrollExtent;
@@ -52,6 +46,14 @@ class _HomeViewPage extends State<HomeViewPage> {
         _getHomeArticleList();
       }
     });
+  }
+
+  @override
+  void onResume() {
+    super.onResume();
+    currentPage = 0;
+    _getBanner();
+    _getHomeArticleList();
   }
 
   @override
@@ -149,7 +151,7 @@ class _HomeViewPage extends State<HomeViewPage> {
       );
     } else if (!DataUtils.listIsEmpty(listData)) {
       if (position <= listData.length) {
-        return ListItemWidget(
+        return HomeListItemWidget(
           itemData: listData[position - 1],
         );
       } else if (position == listData.length + 1) {
@@ -168,7 +170,8 @@ class _HomeViewPage extends State<HomeViewPage> {
         builder: (context) => WebViewPage(
               webTitle: bannerListItem.title,
               webUrl: bannerListItem.url,
-              isBanner: true,
+              isCanCollect: true,
+              articleId: bannerListItem.id,
             )));
   }
 }

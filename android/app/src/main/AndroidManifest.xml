@@ -1,6 +1,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:tools="http://schemas.android.com/tools"
-  package="com.silence.silence_flutter_study">
+  package="com.silence.silence_wan_android">
   <!-- io.flutter.app.FlutterApplication is an android.app.Application that
        calls FlutterMain.startInitialization(this); in its onCreate method.
        In most cases you can leave this as-is, but you if you want to provide
@@ -8,13 +8,13 @@
        FlutterApplication and put your custom class here. -->
   <application
     android:name="io.flutter.app.FlutterApplication"
-    android:label="silence_flutter_study"
+    android:label="silence_wan_android"
     tools:replace="android:appComponentFactory"
     android:appComponentFactory="a"
     android:icon="@mipmap/ic_launcher"
     tools:ignore="GoogleAppIndexingWarning">
     <activity
-      android:name="com.silence.silence_flutter_study.MainActivity"
+      android:name="com.silence.silence_wan_android.MainActivity"
       android:launchMode="singleTop"
       android:theme="@style/LaunchTheme"
       android:configChanges="orientation|keyboardHidden|keyboard|screenSize|smallestScreenSize|locale|layoutDirection|fontScale|screenLayout|density|uiMode"

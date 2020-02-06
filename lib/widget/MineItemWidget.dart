@@ -1,16 +1,13 @@
 import 'package:flutter/material.dart';
 
 class MineItemWidget extends StatefulWidget {
-  Widget iconData;
-  String title;
+ final Widget iconData;
+ final String title;
 
   @override
   State<StatefulWidget> createState() => _MineItemWidget();
 
-  MineItemWidget({ Widget iconData, String title}) {
-    this.iconData = iconData;
-    this.title = title;
-  }
+  MineItemWidget({ this.iconData, this.title});
 }
 
 class _MineItemWidget extends State<MineItemWidget> {

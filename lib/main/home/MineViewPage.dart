@@ -1,21 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:silence_flutter_study/common/DataUtils.dart';
-import 'package:silence_flutter_study/common/SpUtils.dart';
-import 'package:silence_flutter_study/common/Strings.dart';
-import 'package:silence_flutter_study/entity/MineItemEntity.dart';
-import 'package:silence_flutter_study/entity/UserInfoEntity.dart';
-import 'package:silence_flutter_study/login/LoginPage.dart';
-import 'package:silence_flutter_study/mine/AboutMinePage.dart';
-import 'package:silence_flutter_study/mine/IntegralRecordPage.dart';
-import 'package:silence_flutter_study/mine/MyCollectPage.dart';
-import 'package:silence_flutter_study/mine/MyShareArticlePage.dart';
-import 'package:silence_flutter_study/mine/SystemSettingPage.dart';
-import 'package:silence_flutter_study/net/ApiUrl.dart';
-import 'package:silence_flutter_study/net/HttpUtils.dart';
-import 'package:silence_flutter_study/web/WebViewPage.dart';
-import 'package:silence_flutter_study/widget/MineItemWidget.dart';
+import 'package:silence_wan_android/common/DataUtils.dart';
+import 'package:silence_wan_android/common/SpUtils.dart';
+import 'package:silence_wan_android/common/Strings.dart';
+import 'package:silence_wan_android/entity/MineItemEntity.dart';
+import 'package:silence_wan_android/entity/UserInfoEntity.dart';
+import 'package:silence_wan_android/login/LoginPage.dart';
+import 'package:silence_wan_android/mine/AboutMinePage.dart';
+import 'package:silence_wan_android/mine/IntegralRecordPage.dart';
+import 'package:silence_wan_android/mine/MyCollectPage.dart';
+import 'package:silence_wan_android/mine/MyShareArticlePage.dart';
+import 'package:silence_wan_android/mine/SystemSettingPage.dart';
+import 'package:silence_wan_android/net/ApiUrl.dart';
+import 'package:silence_wan_android/net/HttpUtils.dart';
+import 'package:silence_wan_android/web/WebViewPage.dart';
+import 'package:silence_wan_android/widget/MineItemWidget.dart';
 
 import '../../common/AppColors.dart';
 
@@ -124,7 +124,7 @@ class _MineViewPage extends State<MineViewPage> {
                               Container(
                                 margin: EdgeInsets.only(top: 15.0, left: 10.0),
                                 child: Text(
-                                  Strings.coinCount + "$coinCount",
+                                  Strings.coinCountWithString + "$coinCount",
                                   style: TextStyle(
                                       fontSize: 12.0, color: Colors.white),
                                 ),
@@ -246,7 +246,7 @@ class _MineViewPage extends State<MineViewPage> {
         builder: (context) => WebViewPage(
               webTitle: Strings.wanAndroid,
               webUrl: ApiUrl.baseUrl,
-              isBanner: true,
+              isCanCollect: false,
             )));
   }
 

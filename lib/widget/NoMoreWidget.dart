@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:silence_flutter_study/common/Strings.dart';
+import 'package:silence_wan_android/common/Strings.dart';
 
 /// @date:2020-01-20
 /// @author:Silence
