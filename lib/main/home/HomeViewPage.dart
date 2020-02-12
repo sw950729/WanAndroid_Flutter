@@ -113,7 +113,7 @@ class _HomeViewPage extends StateWithLifecycle<HomeViewPage> {
         .request(ApiUrl.homeArticleList + "$currentPage/json", (data) {
       setState(() {
         var articleData = HomeArticleListEntity.fromJson(data);
-        if (articleData.datas.length < PAGE_SIZE) {
+        if (articleData.size < PAGE_SIZE) {
           isLoadMore = false;
         }
         if (currentPage == 0) {

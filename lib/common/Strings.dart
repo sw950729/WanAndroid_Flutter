@@ -30,6 +30,9 @@ class Strings {
   static String coinCountHelp = "积分规则";
   static String level = "等级：";
   static String homePageTitle = "首页";
+  static String navigationTitle = "导航";
+  static String systemTitle = "体系";
+  static String squareTitle = "广场";
   static String textNull = "--";
   static String coinCountHistory = "积分记录";
   static String myCollect = "我的收藏";
@@ -61,4 +64,5 @@ class Strings {
   static String articleLink = "文章链接";
   static String pleaseInputShareArticleLink = "请输入分享文章链接";
   static String shareSuccess="分享成功";
+  static String userInfoTitle="个人信息";
 }

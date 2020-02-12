@@ -4,9 +4,10 @@ import 'package:silence_wan_android/common/AppColors.dart';
 import 'package:silence_wan_android/common/SpUtils.dart';
 import 'package:silence_wan_android/common/Strings.dart';
 import 'package:silence_wan_android/entity/LoginEntity.dart';
-import 'package:silence_wan_android/login/RegisterPage.dart';
 import 'package:silence_wan_android/net/ApiUrl.dart';
 import 'package:silence_wan_android/net/HttpUtils.dart';
+
+import 'RegisterPage.dart';
 
 /// @date:2020-01-13
 /// @author:Silence

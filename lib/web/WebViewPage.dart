@@ -12,7 +12,7 @@ import '../common/DataUtils.dart';
 class WebViewPage extends StatefulWidget {
   final String webUrl;
   final String webTitle;
-  bool collect;
+  final bool collect;
   final bool isCanCollect;
   final int articleId;
 
@@ -24,10 +24,14 @@ class WebViewPage extends StatefulWidget {
     this.articleId,
   });
 
-  State<WebViewPage> createState() => _WebViewPage();
+  State<WebViewPage> createState() => _WebViewPage(collect: collect);
 }
 
 class _WebViewPage extends State<WebViewPage> {
+  bool collect;
+
+  _WebViewPage({this.collect});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -39,11 +43,11 @@ class _WebViewPage extends State<WebViewPage> {
             visible: widget.isCanCollect,
             child: IconButton(
               icon: Icon(
-                widget.collect ? Icons.favorite : Icons.favorite_border,
-                color: widget.collect ? Colors.red : null,
+                collect ? Icons.favorite : Icons.favorite_border,
+                color: collect ? Colors.red : null,
               ),
               onPressed: () {
-                if (widget.collect) {
+                if (collect) {
                   _unCollect();
                 } else {
                   _collect();
@@ -63,7 +67,7 @@ class _WebViewPage extends State<WebViewPage> {
     HttpUtils.getInstance().request(ApiUrl.collect + "${widget.articleId}/json",
         (data) {
       setState(() {
-        widget.collect = true;
+        collect = true;
       });
     }, method: HttpUtils.POST);
   }
@@ -72,7 +76,7 @@ class _WebViewPage extends State<WebViewPage> {
     HttpUtils.getInstance()
         .request(ApiUrl.unCollect + "${widget.articleId}/json", (data) {
       setState(() {
-        widget.collect = false;
+        collect = false;
       });
     }, method: HttpUtils.POST);
   }

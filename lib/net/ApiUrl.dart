@@ -11,6 +11,7 @@ class ApiUrl {
 
   //首页banner
   static var banner = "/banner/json";
+
   //首页文章列表
   static var homeArticleList = "/article/list/";
 
@@ -22,10 +23,16 @@ class ApiUrl {
   static var collect = "/lg/collect/";
   static var unCollect = "/lg/uncollect_originId/";
   static var collectList = "/lg/collect/list/";
-  static var unCollectList="/lg/uncollect/";
+  static var unCollectList = "/lg/uncollect/";
 
   //分享
-  static var myShareArticle="/user/lg/private_articles/";
-  static var deleteArticle= "/lg/user_article/delete/";
-  static var shareArticle="/lg/user_article/add/json";
+  static var myShareArticle = "/user/lg/private_articles/";
+  static var deleteArticle = "/lg/user_article/delete/";
+  static var shareArticle = "/lg/user_article/add/json";
+
+  //获取用户信息
+  static var userShareList = "/user/";
+
+  static var navigation = "/navi/json";
+  static var systemTree = "/tree/json";
 }

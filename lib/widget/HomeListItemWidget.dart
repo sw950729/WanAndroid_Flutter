@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:silence_wan_android/common/AppColors.dart';
 import 'package:silence_wan_android/common/DataUtils.dart';
+import 'package:silence_wan_android/common/NavigationUtils.dart';
 import 'package:silence_wan_android/common/SpUtils.dart';
 import 'package:silence_wan_android/common/Strings.dart';
 import 'package:silence_wan_android/entity/HomeArticleListEntity.dart';
-import 'package:silence_wan_android/login/LoginPage.dart';
 import 'package:silence_wan_android/net/ApiUrl.dart';
 import 'package:silence_wan_android/net/HttpUtils.dart';
+import 'package:silence_wan_android/user/UserInfoPage.dart';
+import 'package:silence_wan_android/user/login/LoginPage.dart';
 import 'package:silence_wan_android/web/WebViewPage.dart';
 
 /// @date:2020-01-20
@@ -14,8 +16,9 @@ import 'package:silence_wan_android/web/WebViewPage.dart';
 /// @describe:  首页列表数据
 class HomeListItemWidget extends StatefulWidget {
   final HomeArticleListDatasEntity itemData;
+  final bool isUserOwn;
 
-  HomeListItemWidget({@required this.itemData}) {
+  HomeListItemWidget({@required this.itemData, this.isUserOwn = false}) {
     this.itemData.title = DataUtils.replaceAll(this.itemData.title);
   }
 
@@ -72,33 +75,43 @@ class _HomeListItemWidget extends State<HomeListItemWidget> {
                 },
               ),
             ]),
-            Stack(
-              children: <Widget>[
-                Container(
-                  alignment: Alignment.bottomRight,
-                  margin: EdgeInsets.only(bottom: 5.0, right: 5.0),
-                  child: Text(
-                    widget.itemData.niceDate,
-                    style: TextStyle(fontSize: 12.0),
+            Container(
+              padding: EdgeInsets.only(bottom: 8.0, top: 8.0),
+              child: Stack(
+                children: <Widget>[
+                  Container(
+                    alignment: Alignment.bottomRight,
+                    margin: EdgeInsets.only(bottom: 5.0, right: 5.0),
+                    child: Text(
+                      widget.itemData.niceDate,
+                      style: TextStyle(fontSize: 12.0),
+                    ),
                   ),
-                ),
-                Container(
-                  alignment: Alignment.bottomLeft,
-                  margin: EdgeInsets.only(left: 10.0, bottom: 5.0),
-                  child: Text(
-                    DataUtils.isEmpty(widget.itemData.author)
-                        ? Strings.shareUser + "${widget.itemData.shareUser}"
-                        : Strings.authorWithString +
-                            "${widget.itemData.author}",
-                    style: TextStyle(
-                        fontSize: 12.0,
-                        color: DataUtils.isEmpty(widget.itemData.author)
-                            ? AppColors.colorPrimary
-                            : null),
+                  GestureDetector(
+                    onTap: () => (!widget.isUserOwn &&
+                            DataUtils.isEmpty(widget.itemData.author))
+                        ? _launchUserInfo(widget.itemData.userId)
+                        : null,
+                    child: Container(
+                      alignment: Alignment.bottomLeft,
+                      margin: EdgeInsets.only(left: 10.0, bottom: 5.0),
+                      child: Text(
+                        DataUtils.isEmpty(widget.itemData.author)
+                            ? Strings.shareUser + "${widget.itemData.shareUser}"
+                            : Strings.authorWithString +
+                                "${widget.itemData.author}",
+                        style: TextStyle(
+                            fontSize: 12.0,
+                            color: (!widget.isUserOwn &&
+                                    DataUtils.isEmpty(widget.itemData.author))
+                                ? AppColors.colorPrimary
+                                : null),
+                      ),
+                    ),
                   ),
-                ),
-              ],
-            ),
+                ],
+              ),
+            )
           ],
         ),
         onTap: () {
@@ -145,5 +158,9 @@ class _HomeListItemWidget extends State<HomeListItemWidget> {
             .push(MaterialPageRoute(builder: (context) => LoginPage()));
       }
     });
+  }
+
+  _launchUserInfo(int userGuid) {
+    NavigationUtils.pushPage(context, UserInfoPage(userId: userGuid));
   }
 }

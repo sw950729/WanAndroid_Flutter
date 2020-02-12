@@ -2,11 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:silence_wan_android/common/DataUtils.dart';
+import 'package:silence_wan_android/common/NavigationUtils.dart';
 import 'package:silence_wan_android/common/SpUtils.dart';
+import 'package:silence_wan_android/common/StateWithLifecycle.dart';
 import 'package:silence_wan_android/common/Strings.dart';
 import 'package:silence_wan_android/entity/MineItemEntity.dart';
 import 'package:silence_wan_android/entity/UserInfoEntity.dart';
-import 'package:silence_wan_android/login/LoginPage.dart';
 import 'package:silence_wan_android/mine/AboutMinePage.dart';
 import 'package:silence_wan_android/mine/IntegralRecordPage.dart';
 import 'package:silence_wan_android/mine/MyCollectPage.dart';
@@ -14,6 +15,7 @@ import 'package:silence_wan_android/mine/MyShareArticlePage.dart';
 import 'package:silence_wan_android/mine/SystemSettingPage.dart';
 import 'package:silence_wan_android/net/ApiUrl.dart';
 import 'package:silence_wan_android/net/HttpUtils.dart';
+import 'package:silence_wan_android/user/login/LoginPage.dart';
 import 'package:silence_wan_android/web/WebViewPage.dart';
 import 'package:silence_wan_android/widget/MineItemWidget.dart';
 
@@ -27,7 +29,7 @@ class MineViewPage extends StatefulWidget {
   State<StatefulWidget> createState() => _MineViewPage();
 }
 
-class _MineViewPage extends State<MineViewPage> {
+class _MineViewPage extends StateWithLifecycle<MineViewPage> {
   var ranking = Strings.textNull;
   var coinCount = Strings.textNull;
   var userName = Strings.noLogin;
@@ -58,6 +60,11 @@ class _MineViewPage extends State<MineViewPage> {
     mineList.add(aboutMine);
     mineList.add(setting);
     mineList.add(logout);
+  }
+
+  @override
+  void onResume() {
+    super.onResume();
     SpUtils.isLogin().then((isLogin) {
       if (isLogin) {
         _getUserInfo();

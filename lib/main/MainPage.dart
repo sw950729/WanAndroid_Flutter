@@ -18,7 +18,7 @@ class MainPage extends StatefulWidget {
 class _MainPage extends State<MainPage> {
   int _tabIndex = 0;
   List<BottomNavigationBarItem> _navigationViews;
-  var appBarTitles = [Strings.homePageTitle, '导航', '我的'];
+  var appBarTitles = [Strings.homePageTitle, Strings.navigationTitle, '我的'];
   var _body;
 
   @override
