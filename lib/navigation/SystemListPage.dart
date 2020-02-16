@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:silence_wan_android/common/DataUtils.dart';
 import 'package:silence_wan_android/entity/SystemTreeEntity.dart';
 import 'package:silence_wan_android/net/ApiUrl.dart';
 import 'package:silence_wan_android/net/HttpUtils.dart';
@@ -12,7 +13,8 @@ class SystemListPage extends StatefulWidget {
   _SystemListPageState createState() => _SystemListPageState();
 }
 
-class _SystemListPageState extends State<SystemListPage> {
+class _SystemListPageState extends State<SystemListPage>
+    with AutomaticKeepAliveClientMixin {
   List<SystemTreeEntity> systemTreeList = List();
 
   @override
@@ -23,10 +25,17 @@ class _SystemListPageState extends State<SystemListPage> {
 
   @override
   Widget build(BuildContext context) {
-    return ListView.builder(
-      itemBuilder: (context, i) => _createItem(i),
-      itemCount: systemTreeList.length,
-    );
+    super.build(context);
+    if (DataUtils.listIsEmpty(systemTreeList)) {
+      return Center(
+        child: CircularProgressIndicator(),
+      );
+    } else {
+      return ListView.builder(
+        itemBuilder: (context, i) => _createItem(i),
+        itemCount: systemTreeList.length,
+      );
+    }
   }
 
   _getSystemTree() {
@@ -44,4 +53,7 @@ class _SystemListPageState extends State<SystemListPage> {
       systemTreeEntity: systemTreeList[position],
     );
   }
+
+  @override
+  bool get wantKeepAlive => true;
 }

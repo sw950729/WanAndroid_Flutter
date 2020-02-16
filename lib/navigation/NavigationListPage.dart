@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:silence_wan_android/common/DataUtils.dart';
 import 'package:silence_wan_android/entity/NavigationEntity.dart';
 import 'package:silence_wan_android/net/ApiUrl.dart';
 import 'package:silence_wan_android/net/HttpUtils.dart';
@@ -12,7 +13,8 @@ class NavigationListPage extends StatefulWidget {
   _NavigationListPageState createState() => _NavigationListPageState();
 }
 
-class _NavigationListPageState extends State<NavigationListPage> {
+class _NavigationListPageState extends State<NavigationListPage> with
+    AutomaticKeepAliveClientMixin{
   List<NavigationEntity> navigationList = List();
 
   @override
@@ -23,10 +25,17 @@ class _NavigationListPageState extends State<NavigationListPage> {
 
   @override
   Widget build(BuildContext context) {
-    return ListView.builder(
-      itemBuilder: (context, i) => _createItem(i),
-      itemCount: navigationList.length,
-    );
+    super.build(context);
+    if (DataUtils.listIsEmpty(navigationList)) {
+      return Center(
+        child: CircularProgressIndicator(),
+      );
+    } else {
+      return ListView.builder(
+        itemBuilder: (context, i) => _createItem(i),
+        itemCount: navigationList.length,
+      );
+    }
   }
 
   _getNavigationList() {
@@ -44,4 +53,7 @@ class _NavigationListPageState extends State<NavigationListPage> {
       navigationEntity: navigationList[position],
     );
   }
+
+  @override
+  bool get wantKeepAlive => true;
 }

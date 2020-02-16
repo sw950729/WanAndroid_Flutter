@@ -165,6 +165,7 @@ class _UserShareListPage extends State<UserShareListPage> {
               child: ListView.builder(
                 itemBuilder: (context, i) => _createItem(i),
                 itemCount: listData.length + 1,
+                controller: _controller,
               ),
             ),
           ],

@@ -35,4 +35,6 @@ class ApiUrl {
 
   static var navigation = "/navi/json";
   static var systemTree = "/tree/json";
+  static var squareList = "/user_article/list/";
+  static var systemTreeList = "/article/list/";
 }
