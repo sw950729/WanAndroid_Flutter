@@ -37,4 +37,8 @@ class ApiUrl {
   static var systemTree = "/tree/json";
   static var squareList = "/user_article/list/";
   static var systemTreeList = "/article/list/";
+
+  //搜索
+  static var searchHotKey = "/hotkey/json";
+  static var searchList="/article/query/";
 }

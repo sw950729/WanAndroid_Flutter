@@ -67,6 +67,8 @@ class _SquareListPageState extends State<SquareListPage>
             itemBuilder: (context, i) => _createItem(i),
             itemCount: listData.length + 1,
             controller: _controller,
+            addAutomaticKeepAlives: false,
+            shrinkWrap: true,
           ),
         ),
       );

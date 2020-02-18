@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
 import 'package:silence_wan_android/common/DataUtils.dart';
+import 'package:silence_wan_android/common/NavigationUtils.dart';
 import 'package:silence_wan_android/common/StateWithLifecycle.dart';
 import 'package:silence_wan_android/entity/BannerEntity.dart';
 import 'package:silence_wan_android/entity/HomeArticleListEntity.dart';
 import 'package:silence_wan_android/net/ApiUrl.dart';
 import 'package:silence_wan_android/net/HttpUtils.dart';
+import 'package:silence_wan_android/search/SearchKeyPage.dart';
 import 'package:silence_wan_android/web/WebViewPage.dart';
 import 'package:silence_wan_android/widget/HomeListItemWidget.dart';
 import 'package:silence_wan_android/widget/LoadMoreWidget.dart';
@@ -82,7 +84,8 @@ class _HomeViewPage extends StateWithLifecycle<HomeViewPage> {
                   Icons.search,
                   color: Colors.white,
                 ),
-                onPressed: null,
+                onPressed: () =>
+                    NavigationUtils.pushPage(context, SearchKeyPage()),
               )
             ]),
         body: RefreshIndicator(
@@ -91,6 +94,7 @@ class _HomeViewPage extends StateWithLifecycle<HomeViewPage> {
             itemBuilder: (context, i) => _createItem(i),
             itemCount: listData.length + 2,
             controller: _controller,
+            shrinkWrap: true,
           ),
         ),
       );

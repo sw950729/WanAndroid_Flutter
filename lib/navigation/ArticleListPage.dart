@@ -20,8 +20,7 @@ class ArticleListPage extends StatefulWidget {
   _ArticleListPageState createState() => _ArticleListPageState();
 }
 
-class _ArticleListPageState extends State<ArticleListPage>
-    with AutomaticKeepAliveClientMixin {
+class _ArticleListPageState extends State<ArticleListPage> {
   // 当前页数
   var currentPage = 0;
 
@@ -60,7 +59,6 @@ class _ArticleListPageState extends State<ArticleListPage>
 
   @override
   Widget build(BuildContext context) {
-    super.build(context);
     if (DataUtils.listIsEmpty(listData) && !isLoading) {
       return Center(
         child: CircularProgressIndicator(),
@@ -74,6 +72,8 @@ class _ArticleListPageState extends State<ArticleListPage>
           itemBuilder: (context, i) => _createItem(i),
           itemCount: listData.length + 1,
           controller: _controller,
+          addAutomaticKeepAlives: false,
+          shrinkWrap: true,
         ),
       );
     }
@@ -118,6 +118,4 @@ class _ArticleListPageState extends State<ArticleListPage>
     }
   }
 
-  @override
-  bool get wantKeepAlive => true;
 }

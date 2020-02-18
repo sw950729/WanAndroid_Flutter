@@ -34,6 +34,8 @@ class _SystemListPageState extends State<SystemListPage>
       return ListView.builder(
         itemBuilder: (context, i) => _createItem(i),
         itemCount: systemTreeList.length,
+        addAutomaticKeepAlives: false,
+        shrinkWrap: true,
       );
     }
   }

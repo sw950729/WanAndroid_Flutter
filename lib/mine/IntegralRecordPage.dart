@@ -97,7 +97,6 @@ class _IntegralRecordListPage extends State<IntegralRecordListPage> {
             },
             itemCount: recordHistoryList.length + 1,
             controller: _controller,
-            physics: AlwaysScrollableScrollPhysics(),
           ),
         ),
       );

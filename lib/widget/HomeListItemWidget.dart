@@ -17,8 +17,10 @@ import 'package:silence_wan_android/web/WebViewPage.dart';
 class HomeListItemWidget extends StatefulWidget {
   final HomeArticleListDatasEntity itemData;
   final bool isUserOwn;
+  final String keyWord;
 
-  HomeListItemWidget({@required this.itemData, this.isUserOwn = false}) {
+  HomeListItemWidget(
+      {@required this.itemData, this.isUserOwn = false, this.keyWord = ""}) {
     this.itemData.title = DataUtils.replaceAll(this.itemData.title);
   }
 
@@ -44,8 +46,11 @@ class _HomeListItemWidget extends State<HomeListItemWidget> {
                   child: Container(
                 alignment: Alignment.topLeft,
                 padding: EdgeInsets.all(10.0),
-                child: Text(
-                  widget.itemData.title,
+                child: Text.rich(
+                  DataUtils.isEmpty(widget.keyWord)
+                      ? TextSpan(text: widget.itemData.title)
+                      : DataUtils.getTextSpan(
+                          widget.itemData.title, widget.keyWord),
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: 16.0,

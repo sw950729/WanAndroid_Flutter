@@ -63,6 +63,8 @@ class Strings {
   static String link = "链接";
   static String articleLink = "文章链接";
   static String pleaseInputShareArticleLink = "请输入分享文章链接";
-  static String shareSuccess="分享成功";
-  static String userInfoTitle="个人信息";
+  static String shareSuccess = "分享成功";
+  static String userInfoTitle = "个人信息";
+  static String hotSearchKey = "热门搜索";
+  static String inputKeyToSearch = "输入关键字搜索";
 }

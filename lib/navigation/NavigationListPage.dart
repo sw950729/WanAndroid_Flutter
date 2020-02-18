@@ -34,6 +34,8 @@ class _NavigationListPageState extends State<NavigationListPage> with
       return ListView.builder(
         itemBuilder: (context, i) => _createItem(i),
         itemCount: navigationList.length,
+        addAutomaticKeepAlives: false,
+        shrinkWrap: true,
       );
     }
   }

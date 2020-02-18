@@ -26,7 +26,7 @@ class _SystemListItemWidget extends State<SystemListItemWidget> {
             borderRadius: BorderRadius.all(Radius.circular(5.0))),
         //抗锯齿
         clipBehavior: Clip.antiAlias,
-        child: GestureDetector(
+        child: InkWell(
           child: Container(
             padding:
                 EdgeInsets.only(left: 5.0, top: 10.0, bottom: 10.0, right: 5.0),

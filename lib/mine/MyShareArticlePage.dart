@@ -90,7 +90,7 @@ class _ShareArticleListPage extends StateWithLifecycle<ShareArticleListPage> {
             itemBuilder: (context, position) => _createItem(position),
             itemCount: shareArticleList.length + 1,
             controller: _controller,
-            physics: AlwaysScrollableScrollPhysics(),
+            shrinkWrap: true,
           ),
         ),
       );

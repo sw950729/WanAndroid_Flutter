@@ -78,7 +78,7 @@ class _CollectListPage extends State<CollectListPage> {
             itemBuilder: (context, position) => _createItem(position),
             itemCount: collectList.length + 1,
             controller: _controller,
-            physics: AlwaysScrollableScrollPhysics(),
+            shrinkWrap: true,
           ),
         ),
       );
