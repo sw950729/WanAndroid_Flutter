@@ -4,6 +4,7 @@ import 'package:silence_wan_android/common/AppColors.dart';
 import 'package:silence_wan_android/main/home/HomeViewPage.dart';
 import 'package:silence_wan_android/main/home/MineViewPage.dart';
 import 'package:silence_wan_android/main/home/NavigationViewPage.dart';
+import 'package:silence_wan_android/main/home/ProjectViewPage.dart';
 
 import '../common/Strings.dart';
 
@@ -18,7 +19,12 @@ class MainPage extends StatefulWidget {
 class _MainPage extends State<MainPage> {
   int _tabIndex = 0;
   List<BottomNavigationBarItem> _navigationViews;
-  var appBarTitles = [Strings.homePageTitle, Strings.navigationTitle, '我的'];
+  var appBarTitles = [
+    Strings.homePageTitle,
+    Strings.navigationTitle,
+    Strings.project,
+    Strings.mine
+  ];
   var _body;
 
   @override
@@ -36,8 +42,13 @@ class _MainPage extends State<MainPage> {
         backgroundColor: Colors.blue,
       ),
       BottomNavigationBarItem(
-        icon: const Icon(Icons.person),
+        icon: const Icon(Icons.apps),
         title: Text(appBarTitles[2]),
+        backgroundColor: Colors.blue,
+      ),
+      BottomNavigationBarItem(
+        icon: const Icon(Icons.person),
+        title: Text(appBarTitles[3]),
         backgroundColor: Colors.blue,
       ),
     ];
@@ -45,7 +56,12 @@ class _MainPage extends State<MainPage> {
 
   void initData() {
     _body = IndexedStack(
-      children: <Widget>[HomeViewPage(), NavigationViewPage(), MineViewPage()],
+      children: <Widget>[
+        HomeViewPage(),
+        NavigationViewPage(),
+        ProjectViewPage(),
+        MineViewPage()
+      ],
       index: _tabIndex,
     );
   }
@@ -59,6 +75,7 @@ class _MainPage extends State<MainPage> {
       home: Scaffold(
         body: _body,
         bottomNavigationBar: BottomNavigationBar(
+          type: BottomNavigationBarType.fixed,
           items: _navigationViews,
           currentIndex: _tabIndex,
           onTap: (index) {

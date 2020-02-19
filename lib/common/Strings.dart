@@ -67,4 +67,8 @@ class Strings {
   static String userInfoTitle = "个人信息";
   static String hotSearchKey = "热门搜索";
   static String inputKeyToSearch = "输入关键字搜索";
+  static String mine = "我的";
+  static String project = "项目";
+  static String newProject = "最新项目";
+  static String projectTree = "项目分类";
 }

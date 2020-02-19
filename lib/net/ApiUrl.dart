@@ -40,5 +40,10 @@ class ApiUrl {
 
   //搜索
   static var searchHotKey = "/hotkey/json";
-  static var searchList="/article/query/";
+  static var searchList = "/article/query/";
+
+  //项目
+  static var projectTree = "/project/tree/json";
+  static var newProjectList = "/article/listproject/";
+  static var projectList = "/project/list/";
 }

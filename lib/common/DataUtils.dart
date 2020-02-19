@@ -22,6 +22,7 @@ class DataUtils {
     str = str.replaceAll("&mdash;", "\—");
     str = str.replaceAll("&amp;", "\&");
     str = str.replaceAll("&middot;", "\·");
+    str = str.replaceAll("&gt;", "\>");
     str = str.replaceAll("&hellip;", "\.\.\.");
     return str;
   }

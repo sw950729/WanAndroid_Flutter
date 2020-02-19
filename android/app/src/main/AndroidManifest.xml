@@ -8,7 +8,7 @@
        FlutterApplication and put your custom class here. -->
   <application
     android:name="io.flutter.app.FlutterApplication"
-    android:label="silence_wan_android"
+    android:label="FlutterWanAndroid"
     tools:replace="android:appComponentFactory"
     android:appComponentFactory="a"
     android:icon="@mipmap/ic_launcher"
