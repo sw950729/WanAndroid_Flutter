@@ -45,6 +45,8 @@ class _SplashWidget extends State<SplashState> {
   }
 
   _launchMain() {
-    NavigationUtils.pushPage(context, MainPage());
+    Navigator.of(context).pushAndRemoveUntil(
+        MaterialPageRoute(builder: (context) => MainPage()),
+            (Route<dynamic> rout) => false);
   }
 }
