@@ -10,6 +10,7 @@ class SpUtils {
   static const String USERNAME = "userName";
   static const String COOKIE = "cookie";
   static const String USER_GUID = "userGuid";
+  static const String THEME = "theme";
 
   // 保存用户登录信息，data中包含了userName
   static Future saveLoginInfo(String userName) async {
@@ -52,5 +53,15 @@ class SpUtils {
   static Future<int> getUserGuid() async {
     SharedPreferences sp = await SharedPreferences.getInstance();
     return sp.getInt(USER_GUID);
+  }
+
+  static Future<int> getTheme() async {
+    SharedPreferences sp = await SharedPreferences.getInstance();
+    return sp.getInt(THEME);
+  }
+
+  static Future saveTheme(int position) async {
+    SharedPreferences sp = await SharedPreferences.getInstance();
+    await sp.setInt(THEME, position);
   }
 }

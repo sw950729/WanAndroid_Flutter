@@ -71,4 +71,6 @@ class Strings {
   static String project = "项目";
   static String newProject = "最新项目";
   static String projectTree = "项目分类";
+  static String systemColor="主题颜色";
+  static String setSystemColor="设置主题颜色";
 }

@@ -51,7 +51,7 @@ class DataUtils {
         text.replaceAll(splitString1, '').replaceAll(splitString2, '');
 
     TextSpan textSpan = new TextSpan(
-        text: key, style: new TextStyle(color: AppColors.colorPrimary));
+        text: key, style: new TextStyle(fontWeight: FontWeight.bold));
 
     List<String> split = textOrigin.split(key);
 

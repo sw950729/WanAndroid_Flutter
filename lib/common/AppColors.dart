@@ -16,4 +16,23 @@ class AppColors {
     var blue = Random().nextInt(190);
     return Color.fromRGBO(red, green, blue, 1.0);
   }
+
+ static final List<Color> themeList = [
+    Colors.black,
+    Colors.red,
+    Colors.teal,
+    Colors.pink,
+    Colors.amber,
+    Colors.orange,
+    Colors.green,
+    Colors.blue,
+    Colors.lightBlue,
+    Colors.purple,
+    Colors.deepPurple,
+    Colors.indigo,
+    Colors.cyan,
+    Colors.brown,
+    Colors.grey,
+    Colors.blueGrey
+  ];
 }

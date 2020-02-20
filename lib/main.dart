@@ -4,8 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:silence_wan_android/splash/SplashPage.dart';
 
+import 'common/Store.dart';
+
 void main() {
-  runApp(new WanAndroidApp());
+  runApp(Store.init(child: WanAndroidApp()));
   //处理沉浸式
   if (Platform.isAndroid) {
     SystemUiOverlayStyle systemUiOverlayStyle =

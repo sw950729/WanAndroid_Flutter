@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:silence_wan_android/common/AppColors.dart';
+import 'package:silence_wan_android/common/ConfigInfo.dart';
 import 'package:silence_wan_android/common/DataUtils.dart';
 import 'package:silence_wan_android/common/NavigationUtils.dart';
 import 'package:silence_wan_android/common/SpUtils.dart';
+import 'package:silence_wan_android/common/Store.dart';
 import 'package:silence_wan_android/common/Strings.dart';
 import 'package:silence_wan_android/entity/HomeArticleListEntity.dart';
 import 'package:silence_wan_android/net/ApiUrl.dart';
@@ -31,99 +32,102 @@ class HomeListItemWidget extends StatefulWidget {
 class _HomeListItemWidget extends State<HomeListItemWidget> {
   @override
   Widget build(BuildContext context) {
-    return Card(
-      elevation: 4.0,
-      margin: EdgeInsets.all(10.0),
-      shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.all(Radius.circular(5.0))),
-      //抗锯齿
-      clipBehavior: Clip.antiAlias,
-      child: InkWell(
-        child: Column(
-          children: <Widget>[
-            Row(children: <Widget>[
-              Expanded(
-                  child: Container(
-                alignment: Alignment.topLeft,
-                padding: EdgeInsets.all(10.0),
-                child: Text.rich(
-                  DataUtils.isEmpty(widget.keyWord)
-                      ? TextSpan(text: widget.itemData.title)
-                      : DataUtils.getTextSpan(
-                          widget.itemData.title, widget.keyWord),
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 16.0,
-                  ),
-                ),
-              )),
-              IconButton(
-                alignment: Alignment.topRight,
-                icon: Icon(
-                  widget.itemData.collect
-                      ? Icons.favorite
-                      : Icons.favorite_border,
-                  color: widget.itemData.collect ? Colors.red : null,
-                ),
-                onPressed: () {
-                  SpUtils.isLogin().then((isLogin) {
-                    if (isLogin) {
-                      if (widget.itemData.collect) {
-                        _unCollect();
-                      } else {
-                        _collect();
-                      }
-                    } else {
-                      _launchLogin();
-                    }
-                  });
-                },
-              ),
-            ]),
-            Container(
-              padding: EdgeInsets.only(bottom: 8.0, top: 8.0),
-              child: Stack(
-                children: <Widget>[
-                  Container(
-                    alignment: Alignment.bottomRight,
-                    margin: EdgeInsets.only(bottom: 5.0, right: 5.0),
-                    child: Text(
-                      widget.itemData.niceDate,
-                      style: TextStyle(fontSize: 12.0),
+    return Store.connect<ConfigModel>(builder: (context, child, model) {
+      return Card(
+        elevation: 4.0,
+        margin: EdgeInsets.all(10.0),
+        shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.all(Radius.circular(5.0))),
+        //抗锯齿
+        clipBehavior: Clip.antiAlias,
+        child: InkWell(
+          child: Column(
+            children: <Widget>[
+              Row(children: <Widget>[
+                Expanded(
+                    child: Container(
+                  alignment: Alignment.topLeft,
+                  padding: EdgeInsets.all(10.0),
+                  child: Text.rich(
+                    DataUtils.isEmpty(widget.keyWord)
+                        ? TextSpan(text: widget.itemData.title)
+                        : DataUtils.getTextSpan(
+                            widget.itemData.title, widget.keyWord),
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 16.0,
                     ),
                   ),
-                  GestureDetector(
-                    onTap: () => (!widget.isUserOwn &&
-                            DataUtils.isEmpty(widget.itemData.author))
-                        ? _launchUserInfo(widget.itemData.userId)
-                        : null,
-                    child: Container(
-                      alignment: Alignment.bottomLeft,
-                      margin: EdgeInsets.only(left: 10.0, bottom: 5.0),
+                )),
+                IconButton(
+                  alignment: Alignment.topRight,
+                  icon: Icon(
+                    widget.itemData.collect
+                        ? Icons.favorite
+                        : Icons.favorite_border,
+                    color: widget.itemData.collect ? Colors.red : null,
+                  ),
+                  onPressed: () {
+                    SpUtils.isLogin().then((isLogin) {
+                      if (isLogin) {
+                        if (widget.itemData.collect) {
+                          _unCollect();
+                        } else {
+                          _collect();
+                        }
+                      } else {
+                        _launchLogin();
+                      }
+                    });
+                  },
+                ),
+              ]),
+              Container(
+                padding: EdgeInsets.only(bottom: 8.0, top: 8.0),
+                child: Stack(
+                  children: <Widget>[
+                    Container(
+                      alignment: Alignment.bottomRight,
+                      margin: EdgeInsets.only(bottom: 5.0, right: 5.0),
                       child: Text(
-                        DataUtils.isEmpty(widget.itemData.author)
-                            ? Strings.shareUser + "${widget.itemData.shareUser}"
-                            : Strings.authorWithString +
-                                "${widget.itemData.author}",
-                        style: TextStyle(
-                            fontSize: 12.0,
-                            color: (!widget.isUserOwn &&
-                                    DataUtils.isEmpty(widget.itemData.author))
-                                ? AppColors.colorPrimary
-                                : null),
+                        widget.itemData.niceDate,
+                        style: TextStyle(fontSize: 12.0),
                       ),
                     ),
-                  ),
-                ],
-              ),
-            )
-          ],
+                    GestureDetector(
+                      onTap: () => (!widget.isUserOwn &&
+                              DataUtils.isEmpty(widget.itemData.author))
+                          ? _launchUserInfo(widget.itemData.userId)
+                          : null,
+                      child: Container(
+                        alignment: Alignment.bottomLeft,
+                        margin: EdgeInsets.only(left: 10.0, bottom: 5.0),
+                        child: Text(
+                          DataUtils.isEmpty(widget.itemData.author)
+                              ? Strings.shareUser +
+                                  "${widget.itemData.shareUser}"
+                              : Strings.authorWithString +
+                                  "${widget.itemData.author}",
+                          style: TextStyle(
+                              fontSize: 12.0,
+                              color: (!widget.isUserOwn &&
+                                      DataUtils.isEmpty(widget.itemData.author))
+                                  ? model.theme
+                                  : null),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              )
+            ],
+          ),
+          onTap: () {
+            _onItemClick(widget.itemData);
+          },
         ),
-        onTap: () {
-          _onItemClick(widget.itemData);
-        },
-      ),
-    );
+      );
+    });
   }
 
   void _onItemClick(itemData) async {

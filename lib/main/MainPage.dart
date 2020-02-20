@@ -1,6 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:silence_wan_android/common/AppColors.dart';
+import 'package:silence_wan_android/common/ConfigInfo.dart';
+import 'package:silence_wan_android/common/SpUtils.dart';
+import 'package:silence_wan_android/common/Store.dart';
 import 'package:silence_wan_android/main/home/HomeViewPage.dart';
 import 'package:silence_wan_android/main/home/MineViewPage.dart';
 import 'package:silence_wan_android/main/home/NavigationViewPage.dart';
@@ -34,23 +37,21 @@ class _MainPage extends State<MainPage> {
       BottomNavigationBarItem(
         icon: const Icon(Icons.home),
         title: Text(appBarTitles[0]),
-        backgroundColor: Colors.blue,
+        backgroundColor: AppColors.colorPrimary,
       ),
       BottomNavigationBarItem(
         icon: const Icon(Icons.widgets),
         title: Text(appBarTitles[1]),
-        backgroundColor: Colors.blue,
+        backgroundColor: AppColors.colorPrimary,
       ),
       BottomNavigationBarItem(
-        icon: const Icon(Icons.apps),
-        title: Text(appBarTitles[2]),
-        backgroundColor: Colors.blue,
-      ),
+          icon: const Icon(Icons.apps),
+          title: Text(appBarTitles[2]),
+          backgroundColor: AppColors.colorPrimary),
       BottomNavigationBarItem(
-        icon: const Icon(Icons.person),
-        title: Text(appBarTitles[3]),
-        backgroundColor: Colors.blue,
-      ),
+          icon: const Icon(Icons.person),
+          title: Text(appBarTitles[3]),
+          backgroundColor: AppColors.colorPrimary),
     ];
   }
 
@@ -69,22 +70,27 @@ class _MainPage extends State<MainPage> {
   @override
   Widget build(BuildContext context) {
     initData();
-    return MaterialApp(
-      theme: ThemeData(
-          primaryColor: AppColors.colorPrimary, accentColor: Colors.blue),
-      home: Scaffold(
-        body: _body,
-        bottomNavigationBar: BottomNavigationBar(
-          type: BottomNavigationBarType.fixed,
-          items: _navigationViews,
-          currentIndex: _tabIndex,
-          onTap: (index) {
-            setState(() {
-              _tabIndex = index;
-            });
-          },
+    SpUtils.getTheme().then((position) {
+      Store.value<ConfigModel>(context)
+          .$setTheme(AppColors.themeList[position]);
+    });
+    return Store.connect<ConfigModel>(builder: (context, child, model) {
+      return MaterialApp(
+        theme: ThemeData(primaryColor: model.theme, accentColor: model.theme),
+        home: Scaffold(
+          body: _body,
+          bottomNavigationBar: BottomNavigationBar(
+            type: BottomNavigationBarType.fixed,
+            items: _navigationViews,
+            currentIndex: _tabIndex,
+            onTap: (index) {
+              setState(() {
+                _tabIndex = index;
+              });
+            },
+          ),
         ),
-      ),
-    );
+      );
+    });
   }
 }

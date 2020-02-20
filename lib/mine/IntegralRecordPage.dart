@@ -1,7 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:silence_wan_android/common/AppColors.dart';
+import 'package:silence_wan_android/common/ConfigInfo.dart';
 import 'package:silence_wan_android/common/DataUtils.dart';
+import 'package:silence_wan_android/common/Store.dart';
 import 'package:silence_wan_android/common/Strings.dart';
 import 'package:silence_wan_android/common/UrlUtils.dart';
 import 'package:silence_wan_android/entity/RecordHistoryEntity.dart';
@@ -140,45 +141,47 @@ class _IntegralRecordListPage extends State<IntegralRecordListPage> {
       } else {
         descStr = "";
       }
-      return Card(
-        elevation: 4.0,
-        margin: EdgeInsets.all(10.0),
-        shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.all(Radius.circular(5.0))),
-        clipBehavior: Clip.antiAlias,
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: <Widget>[
-            Container(
-              margin: EdgeInsets.all(10.0),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  Text(recordHistoryList[position].reason + descStr),
-                  Container(
-                      margin: EdgeInsets.only(top: 10.0),
-                      child: Text(
-                        DataUtils.getFormatData(
-                            recordHistoryList[position].date,
-                            Strings.yyyyMMDDHHMMSS),
-                      )),
-                ],
+      return Store.connect<ConfigModel>(builder: (context, child, model) {
+        return Card(
+          elevation: 4.0,
+          margin: EdgeInsets.all(10.0),
+          shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.all(Radius.circular(5.0))),
+          clipBehavior: Clip.antiAlias,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: <Widget>[
+              Container(
+                margin: EdgeInsets.all(10.0),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    Text(recordHistoryList[position].reason + descStr),
+                    Container(
+                        margin: EdgeInsets.only(top: 10.0),
+                        child: Text(
+                          DataUtils.getFormatData(
+                              recordHistoryList[position].date,
+                              Strings.yyyyMMDDHHMMSS),
+                        )),
+                  ],
+                ),
               ),
-            ),
-            Container(
-              margin: EdgeInsets.only(right: 10.0),
-              child: Text(
-                "+" + recordHistoryList[position].coinCount.toString(),
-                style: TextStyle(
-                    fontSize: 16.0,
-                    fontWeight: FontWeight.bold,
-                    color: AppColors.colorPrimary),
-              ),
-            )
-          ],
-        ),
-      );
+              Container(
+                margin: EdgeInsets.only(right: 10.0),
+                child: Text(
+                  "+" + recordHistoryList[position].coinCount.toString(),
+                  style: TextStyle(
+                      fontSize: 16.0,
+                      fontWeight: FontWeight.bold,
+                      color: model.theme),
+                ),
+              )
+            ],
+          ),
+        );
+      });
     }
   }
 }

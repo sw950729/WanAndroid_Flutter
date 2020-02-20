@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:silence_wan_android/common/NavigationUtils.dart';
 import 'package:silence_wan_android/main/MainPage.dart';
 
 /// @date:2020-01-16
@@ -44,8 +45,6 @@ class _SplashWidget extends State<SplashState> {
   }
 
   _launchMain() {
-    Navigator.of(context).pushAndRemoveUntil(
-        MaterialPageRoute(builder: (context) => MainPage()),
-        (Route<dynamic> rout) => false);
+    NavigationUtils.pushPage(context, MainPage());
   }
 }

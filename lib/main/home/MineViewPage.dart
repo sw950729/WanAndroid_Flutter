@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:silence_wan_android/common/ConfigInfo.dart';
 import 'package:silence_wan_android/common/DataUtils.dart';
 import 'package:silence_wan_android/common/NavigationUtils.dart';
 import 'package:silence_wan_android/common/SpUtils.dart';
 import 'package:silence_wan_android/common/StateWithLifecycle.dart';
+import 'package:silence_wan_android/common/Store.dart';
 import 'package:silence_wan_android/common/Strings.dart';
 import 'package:silence_wan_android/entity/MineItemEntity.dart';
 import 'package:silence_wan_android/entity/UserInfoEntity.dart';
@@ -77,89 +79,93 @@ class _MineViewPage extends StateWithLifecycle<MineViewPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Stack(
-        children: <Widget>[
-          GestureDetector(
-              onTap: _launchLogin,
-              child: Container(
-                color: AppColors.colorPrimary,
-                width: double.infinity,
-                height: 200.0,
-                child: Row(
-                  children: <Widget>[
-                    Container(
-                      margin: EdgeInsets.only(left: 10.0),
-                      child: CircleAvatar(
-                        radius: 35.0,
-                        backgroundImage: AssetImage('images/header_logo.jpg'),
+    return Store.connect<ConfigModel>(builder: (context, child, model) {
+      return Scaffold(
+        body: Stack(
+          children: <Widget>[
+            GestureDetector(
+                onTap: _launchLogin,
+                child: Container(
+                  color: model.theme,
+                  width: double.infinity,
+                  height: 200.0,
+                  child: Row(
+                    children: <Widget>[
+                      Container(
+                        margin: EdgeInsets.only(left: 10.0),
+                        child: CircleAvatar(
+                          radius: 35.0,
+                          backgroundImage: AssetImage('images/header_logo.jpg'),
+                        ),
                       ),
-                    ),
-                    Container(
-                      margin: EdgeInsets.only(left: 15.0),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: <Widget>[
-                          Container(
-                            child: Text(
-                              userName,
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 16.0,
-                                  color: Colors.white),
+                      Container(
+                        margin: EdgeInsets.only(left: 15.0),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: <Widget>[
+                            Container(
+                              child: Text(
+                                userName,
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 16.0,
+                                    color: Colors.white),
+                              ),
                             ),
-                          ),
-                          Row(
-                            children: <Widget>[
-                              Container(
-                                margin: EdgeInsets.only(top: 15.0),
-                                child: Text(
-                                  Strings.level + "$level",
-                                  style: TextStyle(
-                                      fontSize: 12.0, color: Colors.white),
+                            Row(
+                              children: <Widget>[
+                                Container(
+                                  margin: EdgeInsets.only(top: 15.0),
+                                  child: Text(
+                                    Strings.level + "$level",
+                                    style: TextStyle(
+                                        fontSize: 12.0, color: Colors.white),
+                                  ),
                                 ),
-                              ),
-                              Container(
-                                margin: EdgeInsets.only(top: 15.0, left: 10.0),
-                                child: Text(
-                                  Strings.ranking + "$ranking",
-                                  style: TextStyle(
-                                      fontSize: 12.0, color: Colors.white),
+                                Container(
+                                  margin:
+                                      EdgeInsets.only(top: 15.0, left: 10.0),
+                                  child: Text(
+                                    Strings.ranking + "$ranking",
+                                    style: TextStyle(
+                                        fontSize: 12.0, color: Colors.white),
+                                  ),
                                 ),
-                              ),
-                              Container(
-                                margin: EdgeInsets.only(top: 15.0, left: 10.0),
-                                child: Text(
-                                  Strings.coinCountWithString + "$coinCount",
-                                  style: TextStyle(
-                                      fontSize: 12.0, color: Colors.white),
+                                Container(
+                                  margin:
+                                      EdgeInsets.only(top: 15.0, left: 10.0),
+                                  child: Text(
+                                    Strings.coinCountWithString + "$coinCount",
+                                    style: TextStyle(
+                                        fontSize: 12.0, color: Colors.white),
+                                  ),
                                 ),
-                              ),
-                            ],
-                          )
-                        ],
-                      ),
-                    )
-                  ],
-                ),
-              )),
-          Container(
-            margin: EdgeInsets.only(top: 180.0),
-            width: double.infinity,
-            height: double.infinity,
-            decoration: new BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.all(Radius.circular(12.0)),
+                              ],
+                            )
+                          ],
+                        ),
+                      )
+                    ],
+                  ),
+                )),
+            Container(
+              margin: EdgeInsets.only(top: 180.0),
+              width: double.infinity,
+              height: double.infinity,
+              decoration: new BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.all(Radius.circular(12.0)),
+              ),
+              child: ListView.builder(
+                itemBuilder: (context, i) => _createItem(i),
+                itemCount: mineList.length,
+              ),
             ),
-            child: ListView.builder(
-              itemBuilder: (context, i) => _createItem(i),
-              itemCount: mineList.length,
-            ),
-          ),
-        ],
-      ),
-    );
+          ],
+        ),
+      );
+    });
   }
 
   // 跳转到登录

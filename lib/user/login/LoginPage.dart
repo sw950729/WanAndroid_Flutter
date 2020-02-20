@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:silence_wan_android/common/AppColors.dart';
+import 'package:silence_wan_android/common/ConfigInfo.dart';
 import 'package:silence_wan_android/common/SpUtils.dart';
+import 'package:silence_wan_android/common/Store.dart';
 import 'package:silence_wan_android/common/Strings.dart';
 import 'package:silence_wan_android/entity/LoginEntity.dart';
 import 'package:silence_wan_android/net/ApiUrl.dart';
@@ -25,77 +26,78 @@ class LoginPageState extends State<LoginPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.white,
-      appBar: AppBar(
-        title: Text(Strings.login),
-        centerTitle: true,
-      ),
-      key: scaffoldKey,
-      body: Container(
-        padding: EdgeInsets.all(20.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            TextFormField(
-              controller: _userNameController,
-              decoration: InputDecoration(
-                  labelText: Strings.userName,
-                  hintText: Strings.userNameHint,
-                  prefixIcon: Icon(Icons.person)),
-              inputFormatters: [
-                WhitelistingTextInputFormatter(RegExp("[a-z,A-Z,0-9]")),
-              ],
-            ),
-            TextFormField(
-              controller: _userPassWordController,
-              decoration: InputDecoration(
-                  labelText: Strings.password,
-                  hintText: Strings.passwordHint,
-                  prefixIcon: Icon(Icons.lock),
-                  suffixIcon: IconButton(
-                    icon: Icon(_isShowPassWord
-                        ? Icons.visibility_off
-                        : Icons.visibility),
-                    onPressed: () {
-                      setState(() {
-                        _isShowPassWord = !_isShowPassWord;
-                      });
-                    },
-                  )),
-              obscureText: true,
-            ),
-            Padding(
-              padding: EdgeInsets.only(top: 15.0),
-              child: Container(
-                padding: EdgeInsets.only(top: 15.0),
-                width: double.infinity,
-                child: RaisedButton(
-                  color: Theme.of(context).primaryColor,
-                  onPressed: _onLogin,
-                  textColor: Colors.white,
-                  child: Text(Strings.login),
-                ),
-                margin: EdgeInsets.all(5.0),
-              ),
-            ),
-            GestureDetector(
-              child: Container(
-                alignment: Alignment.centerRight,
-                padding: EdgeInsets.only(top: 15.0, right: 10.0),
-                child: Text(
-                  Strings.goToRegister,
-                  style:
-                      TextStyle(fontSize: 14.0, color: AppColors.colorPrimary),
-                ),
-              ),
-              onTap: _launchRegister,
-            )
-          ],
+    return Store.connect<ConfigModel>(builder: (context, child, model) {
+      return Scaffold(
+        backgroundColor: Colors.white,
+        appBar: AppBar(
+          title: Text(Strings.login),
+          centerTitle: true,
         ),
-      ),
-    );
+        key: scaffoldKey,
+        body: Container(
+          padding: EdgeInsets.all(20.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              TextFormField(
+                controller: _userNameController,
+                decoration: InputDecoration(
+                    labelText: Strings.userName,
+                    hintText: Strings.userNameHint,
+                    prefixIcon: Icon(Icons.person)),
+                inputFormatters: [
+                  WhitelistingTextInputFormatter(RegExp("[a-z,A-Z,0-9]")),
+                ],
+              ),
+              TextFormField(
+                controller: _userPassWordController,
+                decoration: InputDecoration(
+                    labelText: Strings.password,
+                    hintText: Strings.passwordHint,
+                    prefixIcon: Icon(Icons.lock),
+                    suffixIcon: IconButton(
+                      icon: Icon(_isShowPassWord
+                          ? Icons.visibility_off
+                          : Icons.visibility),
+                      onPressed: () {
+                        setState(() {
+                          _isShowPassWord = !_isShowPassWord;
+                        });
+                      },
+                    )),
+                obscureText: true,
+              ),
+              Padding(
+                padding: EdgeInsets.only(top: 15.0),
+                child: Container(
+                  padding: EdgeInsets.only(top: 15.0),
+                  width: double.infinity,
+                  child: RaisedButton(
+                    color: Theme.of(context).primaryColor,
+                    onPressed: _onLogin,
+                    textColor: Colors.white,
+                    child: Text(Strings.login),
+                  ),
+                  margin: EdgeInsets.all(5.0),
+                ),
+              ),
+              GestureDetector(
+                child: Container(
+                  alignment: Alignment.centerRight,
+                  padding: EdgeInsets.only(top: 15.0, right: 10.0),
+                  child: Text(
+                    Strings.goToRegister,
+                    style: TextStyle(fontSize: 14.0, color: model.theme),
+                  ),
+                ),
+                onTap: _launchRegister,
+              )
+            ],
+          ),
+        ),
+      );
+    });
   }
 
   void _onLogin() async {
