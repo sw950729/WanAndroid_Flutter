@@ -12,18 +12,10 @@ class EmptyWidget extends StatelessWidget {
         alignment: Alignment.center,
         children: <Widget>[
           Image.asset(
-            'images/message_empty.webp',
+            'images/message_empty.png',
             width: 200.0,
             height: 200.0,
             fit: BoxFit.contain,
-          ),
-          Container(
-            alignment: Alignment.center,
-            margin: EdgeInsets.only(top: 120.0),
-            child: Text(
-              Strings.emptyData,
-              style: TextStyle(fontSize: 14.0),
-            ),
           )
         ],
       ),

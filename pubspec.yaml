@@ -36,7 +36,7 @@ flutter:
     - images/coin_count.png
     - images/about_mine.png
     - images/logout.png
-    - images/message_empty.webp
+    - images/message_empty.png
     - images/wechat_public_account.jpg
     - images/setting.png
     - images/header_logo.jpg
